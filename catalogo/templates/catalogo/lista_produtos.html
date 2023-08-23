@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Luxury</title>
+    
+    <style>
+        /* styles.css */
+
+/* Estilo geral */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Menu de navegação */
+nav {
+    background-color: #444;
+    padding: 10px 0;
+}
+
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.menu li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Lista de produtos */
+.product-list {
+    padding: 20px;
+}
+
+.products {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.product {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 240px;
+}
+
+.product a {
+    text-decoration: none;
+    color: #333;
+}
+
+.product-image {
+    max-width: 100%;
+    max-height: 150px;
+    margin-bottom: 10px;
+}
+
+.no-image {
+    color: #777;
+}
+
+.product-name {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.product-price {
+    color: #e44d26;
+    font-weight: bold;
+}
+
+/* Rodapé */
+footer {
+    background-color: #444;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Luxury 1977</h1>
+    </header>
+    <nav>
+        <ul class="menu">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="{% url 'ver_carrinho'%}">Carrinho</a></li>
+            <li><a href="#">Contato</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="product-list">
+            <h2>Produtos em Destaque</h2>
+            <ul class="products">
+                {% for produto in produtos %}
+                    <li class="product">
+                        <a href="{% url 'detalhes_produto' produto.id %}">
+                            {% if produto.imagem %}
+                                <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="product-image">
+                            {% else %}
+                                <p class="no-image">Sem imagem</p>
+                            {% endif %}
+                            <p class="product-name">{{ produto.nome }}</p>
+                            <p class="product-price">{{ produto.preco }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Minha Loja Virtual. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

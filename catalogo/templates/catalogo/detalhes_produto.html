@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Produto</title>
+    <style>
+        /* styles.css */
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .product-image {
+            max-width: 255px;
+            max-height: 255px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+        }
+
+        .add-to-cart {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Detalhes do Produto</h1>
+        <h2>{{ produto.nome }}</h2>
+        <p>{{ produto.descricao }}</p>
+        <p>Preço: R$ {{ produto.preco }}</p>
+        {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" alt="{{ produto.nome }}" class="product-image">
+        {% else %}
+            <p>Sem imagem</p>
+        {% endif %}
+        <a href="{% url 'lista_produtos' %}" class="back-link">Voltar para a lista</a>
+        <form action="{% url 'adicionar_carrinho' produto.id %}" method="post" class="add-to-cart">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Adicionar ao Carrinho</button>
+        </form>
+    </div>
+</body>
+</html>
